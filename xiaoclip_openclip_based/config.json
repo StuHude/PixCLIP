@@ -1,0 +1,29 @@
+{
+  "_name_or_path": "LLM2CLIP-Openai-L-14",
+  "architectures": [
+    "LLM2CLIPModel"
+  ],
+  "auto_map": {
+    "AutoConfig": "configuration_clip.CLIPConfig",
+    "AutoModel": "modeling_clip.LLM2CLIPModel"
+  },
+  "initializer_factor": 1.0,
+  "logit_scale_init_value": 2.6592,
+  "model_type": "clip",
+  "projection_dim": 1280,
+  "text_config": {
+    "model_type": "clip_text_model"
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.40.2",
+  "vision_config": {
+    "dropout": 0.0,
+    "hidden_size": 1024,
+    "intermediate_size": 4096,
+    "model_type": "clip_vision_model",
+    "num_attention_heads": 16,
+    "num_hidden_layers": 24,
+    "patch_size": 14,
+    "projection_dim": 1280
+  }
+}
