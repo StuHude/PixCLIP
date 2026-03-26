@@ -1,7 +1,11 @@
 # PixCLIP (Masked-Image CLIP for Region-aware Evaluation)
 
-[![arXiv](https://img.shields.io/badge/arXiv-2511.04601-b31b1b.svg)](https://arxiv.org/abs/2511.04601)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-PixCLIP_B_16-FFD21E?logo=huggingface&logoColor=000)](https://huggingface.co/HudeKing/PixCLIP_B_16/blob/main/iter_8700.pth)
+<div align="center">
+
+[![arXiv](https://img.shields.io/badge/arXiv-2511.04601-8B0000?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2511.04601)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000000)](https://huggingface.co/HudeKing/PixCLIP_B_16/blob/main/iter_8700.pth)
+
+</div>
 
 This repository provides evaluation code for PixCLIP/PixCLIP style masked-image models, plus the minimal model code needed to run inference and retrieval/classification evaluations.
 
