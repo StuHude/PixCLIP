@@ -1,6 +1,8 @@
-# PixCLIP (Masked-Image CLIP for Region-aware Evaluation)
-
 <div align="center">
+
+<img src="./assets/pixclip_banner.png" alt="PixCLIP Banner" width="100%" />
+
+<h1>PixCLIP (Masked-Image CLIP for Region-aware Evaluation)</h1>
 
 [![arXiv](https://img.shields.io/badge/arXiv-2511.04601-8B0000?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2511.04601)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000000)](https://huggingface.co/HudeKing/PixCLIP_B_16/blob/main/iter_8700.pth)
@@ -8,6 +10,12 @@
 </div>
 
 This repository provides evaluation code for PixCLIP/PixCLIP style masked-image models, plus the minimal model code needed to run inference and retrieval/classification evaluations.
+
+## Overview
+
+<div align="center">
+  <img src="./assets/pixclip_train-infer.png" alt="PixCLIP training and inference overview" width="100%" />
+</div>
 
 ## Quickstart: Inference (Single Image + Mask)
 This model expects an **RGB image** and a **single-channel mask** (white = keep). Example:
