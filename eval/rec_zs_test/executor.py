@@ -30,6 +30,8 @@ from llm2vec import LLM2Vec
 sys.path.insert(0, str(REPO_ROOT))
 from pixclip import CustomCLIP, create_model, create_model_and_transforms
 
+DEFAULT_PIXCLIP_CKPT = REPO_ROOT / "checkpoints" / "iter_9000.pth"
+DEFAULT_ALPHACLIP_CP01_CKPT = REPO_ROOT / "checkpoints" / "alpha_clip_cp0.1_iter_9300.pth"
 
 import pycocotools.mask as mask_utils
 from segment_anything import sam_model_registry, SamPredictor
@@ -262,19 +264,7 @@ class ClipExecutor(Executor):
                 
                 # 根据 cp0.0 和 cp0.1 加载不同的模型
                 if model_name == 'cp0.0':
-                    # model, preprocess = alpha_clip.load("ViT-B/16", 
-                    #                                     alpha_vision_ckpt_pth="/data/xyc/hjl/AlphaCLIP/train/log/grit_1m/lr=0.0001_wd=0.02_wl=800_logs=4.6052_L14_336_lora=-1_cp=0.0_para_gamma=0.01_e10_16xb_subnum=10000000/ckpt/iter_9300.pth", 
-                    #                                     device=device)
-
-                    #1. 0304 测模型
-                    # model, preprocess = alpha_clip.load("ViT-B/16", 
-                    #                                     alpha_vision_ckpt_pth="/data/xyc/hjl/AlphaCLIP/train/log/grit_1m/alpha_clip/ckpt/iter_4600.pth", 
-                    #                                     device=device)
-                    # 2. 0312 测模型
                     print("加载模型cp0.0")
-                    # model, preprocess = alpha_clip.load("ViT-B/16", 
-                    #                                     alpha_vision_ckpt_pth="/data/xyc/hjl/PixCLIP/train/log/grit_1m/alpha_clip/ckpt/iter_4600.pth", 
-                    #                                     device=device)
                     model = create_model(
                         model_name="EVA02-CLIP-B-16",
                         force_custom_clip=True,
@@ -284,7 +274,7 @@ class ClipExecutor(Executor):
                     ).cuda()
                     
                     map_location = {'cuda:0': 'cuda:0'}
-                    ckpt_path = self.pixclip_ckpt or "/data/cy/pixclip/train/log/grit_1m/2CL/ckpt/iter_9000.pth"
+                    ckpt_path = self.pixclip_ckpt or os.getenv("PIXCLIP_CKPT", str(DEFAULT_PIXCLIP_CKPT))
                     ckpt = torch.load(ckpt_path, map_location=map_location)
                     # 确保权重和模型数据类型一致
                     model.load_state_dict(ckpt, strict=False)
@@ -301,8 +291,9 @@ class ClipExecutor(Executor):
                     ])
 
                 elif model_name == 'cp0.1':
+                    alpha_ckpt = os.getenv("ALPHACLIP_CP01_CKPT", str(DEFAULT_ALPHACLIP_CP01_CKPT))
                     model, preprocess = alpha_clip.load("ViT-B/16", 
-                                                        alpha_vision_ckpt_pth="/data/xyc/hjl/AlphaCLIP/train/log/grit_1m/lr=0.0001_wd=0.02_wl=800_logs=4.6052_L14_336_lora=-1_cp=0.1_para_gamma=0.01_e10_16xb_subnum=10000000/ckpt/iter_9300.pth", 
+                                                        alpha_vision_ckpt_pth=alpha_ckpt,
                                                         device=device)
             else: 
                 model, preprocess = clip.load(model_name, device=device, jit=False)

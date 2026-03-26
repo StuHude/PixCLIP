@@ -19,6 +19,13 @@ import torch
 import numpy as np
 import copy
 from transformers import AutoProcessor
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_COCO_ANN = REPO_ROOT / "data" / "coco" / "annotations" / "instances_val2017.json"
+DEFAULT_COCO_IMAGE_ROOT = REPO_ROOT / "data" / "coco" / "val2017"
+DEFAULT_LVIS_ANN = REPO_ROOT / "data" / "lvis" / "annotations" / "lvis_v1_val.json"
+
 PIXEL_MEAN = (0.48145466, 0.4578275, 0.40821073)
 MASK_FILL = [int(255 * c) for c in PIXEL_MEAN]
 clip_standard_transform = transforms.Compose([
@@ -74,7 +81,13 @@ def masked_crop(image: np.array, bbox_xywh: np.array, bi_mask: np.array, crop_sc
     return cropped_image, cropped_mask
 
 class COCO_Masked_Test(Dataset):
-    def __init__(self, ann_file="/data/xyc/coco/annotations/instances_val2017.json",  masked_color=[255, 255, 255], root_directory="/data/xyc/coco/val2017", hi_res=False):
+    def __init__(
+        self,
+        ann_file=str(DEFAULT_COCO_ANN),
+        masked_color=[255, 255, 255],
+        root_directory=str(DEFAULT_COCO_IMAGE_ROOT),
+        hi_res=False,
+    ):
         self.masked_color = masked_color
         self.coco = COCO(annotation_file=ann_file)
         self.image_directory = root_directory
@@ -110,7 +123,7 @@ class COCO_Masked_Test(Dataset):
         return image, mask_torch, self.id2index[ann['category_id']]
 
 class LVIS_Masked_Test(Dataset):
-    def __init__(self, ann_file="../../data/lvis/annotations/lvis_v1_val.json",  masked_color=[255, 255, 255], hi_res=False):
+    def __init__(self, ann_file=str(DEFAULT_LVIS_ANN),  masked_color=[255, 255, 255], hi_res=False):
         self.masked_color = masked_color
         self.lvis = LVIS(ann_file)
         self.crop_scale = 1.5

@@ -10,9 +10,12 @@ import os
 import subprocess
 from pathlib import Path
 
-os.environ.setdefault("HF_HOME", "/data/xyc/cache")
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
+os.environ.setdefault("HF_HOME", str(REPO_ROOT / ".cache" / "huggingface"))
+DEFAULT_COCO_ANN = REPO_ROOT / "data" / "coco" / "annotations" / "instances_val2017.json"
+DEFAULT_COCO_IMAGE_ROOT = REPO_ROOT / "data" / "coco" / "val2017"
+DEFAULT_CKPT_DIR = REPO_ROOT / "checkpoints"
+
 sys.path.insert(0, str(REPO_ROOT))
 from pixclip import CustomCLIP, create_model, create_model_and_transforms
 
@@ -121,8 +124,8 @@ class CLIP_Clean_test():
         
         self.model.eval()
 
-        testset = COCO_Masked_Test(ann_file=self.ann_file or "/data/xyc/coco/annotations/instances_val2017.json",
-                                   root_directory=self.image_root or "/data/xyc/coco/val2017",
+        testset = COCO_Masked_Test(ann_file=self.ann_file or str(DEFAULT_COCO_ANN),
+                                   root_directory=self.image_root or str(DEFAULT_COCO_IMAGE_ROOT),
                                    hi_res=self.hi_res)
         self.text_embeddings = zeroshot_classifier(testset.classes, simple_templates, self.model, self.alpha_clip, self.local_rank)
         testloader = torch.utils.data.DataLoader(testset, batch_size=self.batch_size, num_workers=16, pin_memory=True)
@@ -221,17 +224,15 @@ def load_config_from_yaml(yaml_path):
 @dataclass
 class Config:
     exp_name: str = "ablation_study_ROI_07241914"
-    exp_root: str = "./cocoeval_exp"    
+    exp_root: str = "./cocoeval_exp"
     model: str = "EVA02-CLIP-B-16"
-    #ckpt_dir: str = "/data/cy/pixclip/train/log/grit_1m/rebuild_pixclip_visual_proj_1.7m_lr1e-4/ckpt"
-    # ckpt_dir: str = "/data/cy/pixclip/train/log/grit_1m/shadow_0414_1.7m_visual_epoch15_lr1e-5/ckpt"
-    ckpt_dir: str="/data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt"
+    ckpt_dir: str = str(DEFAULT_CKPT_DIR)
     batch_size: int = 128
     start_iter: int = 28000
     end_iter: int = 28000
     step: int = 1000
-    ann_file: str = "/data/xyc/coco/annotations/instances_val2017.json"
-    image_root: str = "/data/xyc/coco/val2017"
+    ann_file: str = str(DEFAULT_COCO_ANN)
+    image_root: str = str(DEFAULT_COCO_IMAGE_ROOT)
 
 
     @property

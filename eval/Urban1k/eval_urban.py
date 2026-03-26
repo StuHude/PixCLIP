@@ -16,7 +16,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT))
 from pixclip import CustomCLIP, create_model, create_model_and_transforms
 
-os.environ.setdefault("HF_HOME", "/data/xyc/cache")
+os.environ.setdefault("HF_HOME", str(REPO_ROOT / ".cache" / "huggingface"))
 
 def load_model(device, ckpt_path, clip_type):
     """
