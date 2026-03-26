@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pth
+*.zip
+*.log
+nohup.out
+data/
+cache/
+output/
+ckpt/
+cocoeval_exp/
+reclip_data*
+Urban1k.zip
