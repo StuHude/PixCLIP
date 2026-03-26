@@ -1,14 +1,21 @@
 # Evaluation Guide
 
-This folder contains evaluation scripts for multiple datasets. All commands assume you run from the repo root (`/data/cy/pixclip`).
+This folder contains evaluation scripts for multiple datasets.
+All commands assume you run from the repo root (`PixCLIP/`).
+
+Set paths first:
+```bash
+export CKPT=./checkpoints/iter_8700.pth
+export DATA_ROOT=./data
+```
 
 ## COCO Masked Classification
 Script: `eval/COCO/eval_coco.py`
 ```bash
 python eval/COCO/eval_coco.py \
-  --ckpt /data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt/iter_8700.pth \
-  --ann-file /data/xyc/coco/annotations/instances_val2017.json \
-  --image-root /data/xyc/coco/val2017 \
+  --ckpt "$CKPT" \
+  --ann-file "$DATA_ROOT/coco/annotations/instances_val2017.json" \
+  --image-root "$DATA_ROOT/coco/val2017" \
   --model EVA02-CLIP-B-16 \
   --batch-size 128
 ```
@@ -17,7 +24,7 @@ python eval/COCO/eval_coco.py \
 Script: `eval/docci/eval_docci.py`
 ```bash
 python eval/docci/eval_docci.py \
-  --ckpt /data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt/iter_8700.pth \
+  --ckpt "$CKPT" \
   --root-dir eval/docci/docci \
   --clip_type EVA02-CLIP-B-16
 ```
@@ -26,7 +33,7 @@ python eval/docci/eval_docci.py \
 Script: `eval/Flickr30k/eval_flickr.py`
 ```bash
 python eval/Flickr30k/eval_flickr.py \
-  --ckpt /data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt/iter_8700.pth \
+  --ckpt "$CKPT" \
   --root-dir eval/Flickr30k/data \
   --json-file eval/Flickr30k/data/test_caption.json \
   --clip_type EVA02-CLIP-B-16
@@ -36,7 +43,7 @@ python eval/Flickr30k/eval_flickr.py \
 Script: `eval/Urban1k/eval_urban.py`
 ```bash
 python eval/Urban1k/eval_urban.py \
-  --ckpt /data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt/iter_8700.pth \
+  --ckpt "$CKPT" \
   --root-dir eval/Urban1k/data/Urban1k \
   --clip_type EVA02-CLIP-B-16
 ```
@@ -52,7 +59,7 @@ python eval/rec_zs_test/main.py \
   --box_method_aggregator sum \
   --clip_model cp0.0 \
   --clip_type aclip \
-  --pixclip_ckpt /data/cy/pixclip/train/log/grit_1m/ablation_study_ROI/ckpt/iter_8700.pth \
+  --pixclip_ckpt "$CKPT" \
   --cache_path eval/rec_zs_test/cache
 ```
 See `eval/rec_zs_test/README.md` for full data prep.
