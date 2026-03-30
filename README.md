@@ -15,6 +15,12 @@ This repository provides evaluation code for PixCLIP/PixCLIP style masked-image 
 
 <div align="center">
   <img src="./assets/pixclip_train-infer.png" alt="PixCLIP training and inference overview" width="100%" />
+  <p><em>Overview of PixCLIP training and inference.</em></p>
+</div>
+
+<div align="center">
+  <img src="./assets/viz_embedding_similarity.png" alt="Text-image embedding similarity maps for CLIP, FG-CLIP, and PixCLIP" width="100%" />
+  <p><em>Qualitative text-image embedding similarity maps on two challenging examples (top: "an opened scroll on a dark wooden stand over black marble"; bottom: "a silver mixing bowl full of chocolate-chip batter with a metallic rim"). PixCLIP shows stronger fine-grained phrase-to-region alignment and more object-focused responses than CLIP and FG-CLIP.</em></p>
 </div>
 
 ## Quickstart: Inference (Single Image + Mask)

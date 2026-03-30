@@ -11,3 +11,4 @@ ckpt/
 cocoeval_exp/
 reclip_data*
 Urban1k.zip
+.DS_Store
