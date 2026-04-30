@@ -5,7 +5,7 @@
 <h1>PixCLIP (Masked-Image CLIP for Region-aware Evaluation)</h1>
 
 [![arXiv](https://img.shields.io/badge/arXiv-2511.04601-8B0000?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2511.04601)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000000)](https://huggingface.co/HudeKing/PixCLIP_B_16/blob/main/iter_8700.pth)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000000)](https://huggingface.co/HudeKing/PixCLIP_B_16/blob/main/PixCLIP_B16.pth)
 
 </div>
 
@@ -33,7 +33,7 @@ from PIL import Image
 from pixclip import create_model
 from torchvision import transforms
 
-ckpt = "iter_8700.pth"  # download from HF and place locally
+ckpt = "PixCLIP_B16.pth"  # download from HF and place locally
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 model = create_model(
