@@ -11,6 +11,9 @@
 
 This repository provides evaluation code for PixCLIP/PixCLIP style masked-image models, plus the minimal model code needed to run inference and retrieval/classification evaluations.
 
+## News
+- [2026-05] **PixCLIP: Towards Fine-grained Vision-Language Understanding via Any-granularity Pixel-Text Alignment** has been accepted to ICML 2026.
+
 ## Overview
 
 <div align="center">
